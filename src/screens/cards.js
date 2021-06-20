@@ -22,7 +22,7 @@ function Card(props){
 	
 	return(
 		<div className="card">
-			<img className="card-img" src={"./assets/"+props.image}/>
+			<img className="card-img" src={"./assets/"+props.image} alt="product"/>
 			<p>{props.name}</p>
 			<p className="price">Price : {props.price}</p>
 			

@@ -1,5 +1,5 @@
 import './App.css';
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 import Screen1 from './screens/screen1';
 import Screen2 from './screens/screen2';
 import Screen3 from './screens/screen3';

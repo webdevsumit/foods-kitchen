@@ -15,13 +15,13 @@ function Screen2(){
 
 	const onAddItem=(name, total,cost,price)=>{
 		if(total===1) setTotalItems(totalItems+1);
-		let tempData = selectedData.filter(d=>d.name!=name);
+		let tempData = selectedData.filter(d=>d.name!==name);
 		if(total>0) setSelectedData([...tempData,{"name":name,"total":total,"cost":cost,"price":price}]);
 		else setSelectedData(tempData);
 
 		let tempCost = 0;
 				for(let i=0;i<selectedData.length;i++){
-					tempCost += JSON.parse(selectedData[i].cost);
+					tempCost += selectedData[i].cost;
 				}
 				setTotalCost(tempCost);
 				
@@ -29,24 +29,15 @@ function Screen2(){
 
 	const onRemoveItem=(name,total,cost,price)=>{
 		if(total===0) setTotalItems(totalItems-1);
-		let tempData = selectedData.filter(d=>d.name!=name);
+		let tempData = selectedData.filter(d=>d.name!==name);
 		if(total>0) setSelectedData([...tempData,{"name":name,"total":total,"cost":cost,"price":price}]);
 		else setSelectedData(tempData);
 		let tempCost = 0;
 				for(let i=0;i<selectedData.length;i++){
-					tempCost +=JSON.parse(selectedData[i].cost);
+					tempCost +=selectedData[i].cost;
 				}
 				setTotalCost(tempCost);
 				
-	}
-
-	const showCheckPage=()=>{
-		// let tempCost = 0;
-		// for(let i=0;i<selectedData.length;i++){
-			// tempCost += selectedData[i].cost
-		// }
-		// setTotalCost(tempCost);
-		setChekPage(true);
 	}
 	
 	useEffect(()=>{
@@ -58,7 +49,7 @@ function Screen2(){
 		
 							{totalItems>0 && <p
 							className="bucket"
-							onClick={showCheckPage}
+							onClick={()=>setChekPage(true)}
 							>{totalItems}</p>}
 
 							{checkPage && <div className="check-page">
