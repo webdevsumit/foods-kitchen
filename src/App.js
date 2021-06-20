@@ -1,23 +1,35 @@
-import logo from './logo.svg';
 import './App.css';
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
+import Screen1 from './screens/screen1';
+import Screen2 from './screens/screen2';
+import Screen3 from './screens/screen3';
+
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    	<Router>
+    		<div className="nav">
+    			<img
+    			className="logo" src="./assets/restaurant_24px.svg"
+    			alt="logo"/>
+    			<h3>{"Food's Restaurant"}</h3>
+    		</div>
+
+			<div className="gap-40"></div>
+    		
+        	<Route path='/' exact>
+        		<Screen1/>
+        	</Route>
+
+        	<Route path='/menu'>
+        	     <Screen2/>
+        	 </Route>
+
+        	<Route path='/checkout'>
+        	    <Screen3/>
+        	</Route>
+        </Router>
     </div>
   );
 }
