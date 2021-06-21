@@ -16,12 +16,12 @@ function Screen2(){
 	const onAddItem=(name, total,cost,price)=>{
 		if(total===1) setTotalItems(totalItems+1);
 		let tempData = selectedData.filter(d=>d.name!==name);
-		if(total>0) setSelectedData([...tempData,{"name":name,"total":total,"cost":cost,"price":price}]);
-		else setSelectedData(tempData);
+		if(total>0) tempData[tempData.length] = {"name":name,"total":total,"cost":cost,"price":price};
+		setSelectedData(tempData);
 
 		let tempCost = 0;
-				for(let i=0;i<selectedData.length;i++){
-					tempCost += selectedData[i].cost;
+				for(let i=0;i<tempData.length;i++){
+					tempCost += tempData[i].cost;
 				}
 				setTotalCost(tempCost);
 				
@@ -29,12 +29,13 @@ function Screen2(){
 
 	const onRemoveItem=(name,total,cost,price)=>{
 		if(total===0) setTotalItems(totalItems-1);
+		
 		let tempData = selectedData.filter(d=>d.name!==name);
-		if(total>0) setSelectedData([...tempData,{"name":name,"total":total,"cost":cost,"price":price}]);
-		else setSelectedData(tempData);
+		if(total>0) tempData = [...tempData,{"name":name,"total":total,"cost":cost,"price":price}];
+		setSelectedData(tempData);
 		let tempCost = 0;
-				for(let i=0;i<selectedData.length;i++){
-					tempCost +=selectedData[i].cost;
+				for(let i=0;i<tempData.length;i++){
+					tempCost +=tempData[i].cost;
 				}
 				setTotalCost(tempCost);
 				
@@ -61,11 +62,11 @@ function Screen2(){
 											
 											<button 
 											className="check-btn"
-											onClick={()=>onAddItem(d.name,d.total+1,d.cost+d.price,d.price)}
+											onClick={()=>onAddItem(d.name,d.total+1,parseInt(d.cost)+d.price,d.price)}
 											>+</button>
 											
 											<button
-											onClick={()=>onAddItem(d.name,d.total-1,d.cost-d.price,d.price)}
+											onClick={()=>onRemoveItem(d.name,d.total-1,parseInt(d.cost-d.price),d.price)}
 											className="check-btn bg-red"
 											>-</button>
 
