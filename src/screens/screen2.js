@@ -12,8 +12,10 @@ function Screen2(){
 	const [checkPage, setChekPage] = useState(false);
 	const [selectedData, setSelectedData] = useState([]);
 	const [totalCost, setTotalCost] = useState(0);
+	const [cancel, setCancel] = useState(false);
 
-	const onAddItem=(name, total,cost,price)=>{
+	const onAddItem=(name, total,price)=>{
+		const cost = total*price;
 		if(total===1) setTotalItems(totalItems+1);
 		let tempData = selectedData.filter(d=>d.name!==name);
 		if(total>0) tempData[tempData.length] = {"name":name,"total":total,"cost":cost,"price":price};
@@ -27,7 +29,8 @@ function Screen2(){
 				
 	}
 
-	const onRemoveItem=(name,total,cost,price)=>{
+	const onRemoveItem=(name,total,price)=>{
+		const cost = total*price;
 		if(total===0) setTotalItems(totalItems-1);
 		
 		let tempData = selectedData.filter(d=>d.name!==name);
@@ -62,11 +65,11 @@ function Screen2(){
 											
 											<button 
 											className="check-btn"
-											onClick={()=>onAddItem(d.name,d.total+1,parseInt(d.cost)+d.price,d.price)}
+											onClick={()=>onAddItem(d.name,d.total+1,d.price)}
 											>+</button>
 											
 											<button
-											onClick={()=>onRemoveItem(d.name,d.total-1,parseInt(d.cost-d.price),d.price)}
+											onClick={()=>onRemoveItem(d.name,d.total-1,d.price)}
 											className="check-btn bg-red"
 											>-</button>
 
@@ -79,7 +82,13 @@ function Screen2(){
 									<Link to='/checkout'>
 										<button className="menu-btn">SAVE AND CHECKOUT</button>
 									</Link>
-										<button onClick={()=>setChekPage(false)}
+										<button onClick={()=>{
+															setChekPage(false); 
+															setCancel(!cancel);
+															setTotalCost(0);
+															setSelectedData([]);
+															setTotalItems(0);
+												}}
 										 className="menu-btn cancel-btn">CANCEL</button>
 									</div>
 								</div>
@@ -92,6 +101,7 @@ function Screen2(){
 							price={d.price}
 							onAddItem={onAddItem}
 							onRemoveItem={onRemoveItem}
+							cancel={cancel}
 						/>)}
 		</div>
 	);

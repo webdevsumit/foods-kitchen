@@ -1,12 +1,17 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 
 function Card(props){
 
 	const [total, setTotal] = useState(0);
 	const [cost, setCost] = useState(0);
 
+	useEffect(()=>{
+		setTotal(0);
+		setCost(0);
+	},[props.cancel]);
+
 	const increment=()=>{
-		props.onAddItem(props.name,total+1, (total+1)*props.price,props.price);
+		props.onAddItem(props.name,total+1,props.price);
 		setTotal(total+1);
 		setCost((total+1)*props.price);
 	};
@@ -14,7 +19,7 @@ function Card(props){
 	const decrement=()=>{
 		if(total>0){
 			setTotal(total-1);
-			props.onRemoveItem(props.name, total-1, (total-1)*props.price,props.price)
+			props.onRemoveItem(props.name, total-1,props.price)
 			setCost((total-1)*props.price);
 		}
 	};
